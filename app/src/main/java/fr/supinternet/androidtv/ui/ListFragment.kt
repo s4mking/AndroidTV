@@ -1,13 +1,11 @@
 package fr.supinternet.androidtv.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.leanback.app.BrowseSupportFragment
-import androidx.leanback.widget.ArrayObjectAdapter
-import androidx.leanback.widget.ImageCardView
-import androidx.leanback.widget.ListRowPresenter
-import androidx.leanback.widget.Presenter
+import androidx.leanback.widget.*
 import com.bumptech.glide.Glide
 import fr.supinternet.androidtv.R
 import fr.supinternet.androidtv.data.network.NetworkManager
@@ -21,17 +19,23 @@ import retrofit2.http.Query
 
 
 class ListFragment : BrowseSupportFragment() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val fragmentAdapter = ArrayObjectAdapter(ListRowPresenter())
-        adapter = fragmentAdapter
+        val boxOfficeAdapter = ArrayObjectAdapter(ListPresenter())
 
         GlobalScope.launch {
             val boxOffice = NetworkManager.getBoxOffice()
+            boxOffice.forEach {
+                boxOfficeAdapter.add(it)
+            }
         }
-
+        GlobalScope.launch {
+            val waitings = NetworkManager.getAnticipatedMovies()
+        }
+        val fragmentAdapter = ArrayObjectAdapter(ListRowPresenter())
+        adapter = fragmentAdapter
+        fragmentAdapter.add(ListRow(HeaderItem(0 , "Les sorties"), boxOfficeAdapter))
+        fragmentAdapter.add(ListRow(HeaderItem(0 , "Attendus"), fragmentAdapter))
     }
 }
 

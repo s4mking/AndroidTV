@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:icon="@drawable/abc_vector_test"
+        android:key="date_time"
+        android:title="Catégorie" >
+        <intent
+            android:targetClass="com.android.tv.settings.system.DateTimeActivity"
+            android:targetPackage="com.android.tv.settings" />
+    </Preference>
+    <Preference
+        android:key="language"
+        android:title="Connectivité" >
+        <intent
+            android:targetClass="com.android.tv.settings.system.LanguageActivity"
+            android:targetPackage="com.android.tv.settings" />
+    </Preference>
+    <Preference
+        android:key="keyboard"
+        android:title="Fait-il beau ?" >
+        <intent
+            android:targetClass="com.android.tv.settings.system.KeyboardActivity"
+            android:targetPackage="com.android.tv.settings" />
+    </Preference>
+    <Preference
+        android:key="home"
+        android:title="Texte" >
+        <intent android:action="com.google.android.leanbacklauncher.SETTINGS" />
+    </Preference>
+</PreferenceScreen>
